@@ -41,13 +41,8 @@ namespace GazaGame.Player
             // Load selected weapons from GameManager or defaults
             var selection = GameManager.Instance != null ? GameManager.Instance.SelectedWeapons : new List<string> { "ak47", "pistol", "alyassin" };
 
-            var parent = GetParent<PlayerController>();
-            var parent = GetParent<PlayerController>();
-            Node3D mount = this;
-            if (parent != null && parent.WeaponMount != null)
-            {
-                mount = parent.WeaponMount;
-            }
+            var p = GetParent<PlayerController>();
+            Node mount = p != null && p.WeaponMount != null ? (Node)p.WeaponMount : this;
 
             foreach (var wId in selection)
             {
