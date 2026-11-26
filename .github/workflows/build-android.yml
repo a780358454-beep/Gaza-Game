@@ -79,7 +79,7 @@ jobs:
 
       - name: Restore & Build C# Solution
         run: |
-          dotnet new sln -n Gaza --force
+          dotnet new sln -n Gaza --format sln --force
           dotnet sln Gaza.sln add Gaza.csproj
           dotnet restore Gaza.sln
           dotnet build Gaza.sln -c Release --no-restore
