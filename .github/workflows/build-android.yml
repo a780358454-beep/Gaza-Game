@@ -79,12 +79,18 @@ jobs:
 
       - name: Restore & Build C# Solution
         run: |
-          dotnet restore Gaza.csproj
-          dotnet build Gaza.csproj -c Release --no-restore
+          dotnet new sln -n Gaza --force
+          dotnet sln Gaza.sln add Gaza.csproj
+          dotnet restore Gaza.sln
+          dotnet build Gaza.sln -c Release --no-restore
 
       - name: Export Android Release APK
         run: |
           mkdir -p bin
+          KEYSTORE_PATH="$(pwd)/debug.keystore"
+          sed -i "s|keystore/release=.*|keystore/release=\"${KEYSTORE_PATH}\"|g" export_presets.cfg
+          sed -i "s|keystore/release_user=.*|keystore/release_user=\"androiddebugkey\"|g" export_presets.cfg
+          sed -i "s|keystore/release_password=.*|keystore/release_password=\"android\"|g" export_presets.cfg
           godot --headless --export-release "Android" ./bin/Gaza.apk
           ls -lah bin/
 
