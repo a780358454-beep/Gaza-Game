@@ -136,7 +136,7 @@ namespace GazaGame.Core
             while (_broadcastUdp.GetAvailablePacketCount() > 0)
             {
                 byte[] packet = _broadcastUdp.GetPacket();
-                string senderIp = _broadcastUdp.GetPacketIp();
+                string senderIp = _broadcastUdp.GetPacketIP();
                 string msg = System.Text.Encoding.UTF8.GetString(packet);
                 if (msg.StartsWith("GAZA_SERVER"))
                 {

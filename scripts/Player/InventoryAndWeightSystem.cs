@@ -42,7 +42,7 @@ namespace GazaGame.Player
             var selection = GameManager.Instance != null ? GameManager.Instance.SelectedWeapons : new List<string> { "ak47", "pistol", "alyassin" };
 
             var parent = GetParent<PlayerController>();
-            var mount = parent?.WeaponMount ?? this;
+            Node3D mount = (Node3D)parent?.WeaponMount ?? this;
 
             foreach (var wId in selection)
             {
