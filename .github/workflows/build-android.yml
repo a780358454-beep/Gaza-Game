@@ -1,0 +1,122 @@
+name: Build & Release Gaza Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-android:
+    name: Build Gaza Android APK (.NET 8 + Godot 4.3 Mono)
+    runs-on: ubuntu-latest
+
+    env:
+      GODOT_VERSION: "4.3"
+      GODOT_RELEASE: "4.3-stable"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run Asset Fetcher & 3D/Audio Synthesizer
+        run: |
+          python3 tools/fetch_assets.py
+          ls -lah assets/models
+          ls -lah assets/audio
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Setup Java OpenJDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK Tools
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android Platforms and Build Tools
+        run: |
+          yes | sdkmanager --licenses
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+
+      - name: Generate Debug Keystore
+        run: |
+          keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999 -deststoretype pkcs12
+          ls -lh debug.keystore
+
+      - name: Download & Install Godot 4.3 Mono
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_mono_linux_x86_64.zip
+          unzip -q Godot_v${GODOT_RELEASE}_mono_linux_x86_64.zip
+          sudo mv Godot_v${GODOT_RELEASE}_mono_linux_x86_64/Godot_v${GODOT_RELEASE}_mono_linux.x86_64 /usr/local/bin/godot
+          sudo mv Godot_v${GODOT_RELEASE}_mono_linux_x86_64/GodotSharp /usr/local/bin/GodotSharp
+          sudo chmod +x /usr/local/bin/godot
+          godot --version
+
+      - name: Download & Install Godot Export Templates
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_mono_export_templates.tpz
+          unzip -q Godot_v${GODOT_RELEASE}_mono_export_templates.tpz
+          TEMPLATES_DIR="$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono"
+          mkdir -p "$TEMPLATES_DIR"
+          mv templates/* "$TEMPLATES_DIR/"
+          ls -la "$TEMPLATES_DIR"
+
+      - name: Restore & Build C# Solution
+        run: |
+          dotnet restore Gaza.csproj
+          dotnet build Gaza.csproj -c Release --no-restore
+
+      - name: Export Android Release APK
+        run: |
+          mkdir -p bin
+          godot --headless --export-release "Android" ./bin/Gaza.apk
+          ls -lah bin/
+
+      - name: Upload APK as Workflow Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Gaza-Android-APK
+          path: bin/Gaza.apk
+          retention-days: 30
+
+      - name: Create GitHub Release & Publish APK
+        if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Gaza (غزة) Mobile v1.0.0"
+          tag_name: ${{ github.ref_name || 'v1.0.0' }}
+          draft: false
+          prerelease: false
+          body: |
+            ## لعبة غزة (Gaza) — Tactical First-Person Shooter
+            ### الإصدار الرسمي للأندرويد (Android `.apk`)
+            
+            **مميزات التحديث:**
+            - **طور القصة الموثقة (Historical Campaign)**: المشاهد التسعة الكاملة لمهمة "كمين العقدة" (Operation: The Junction Ambush) عبر الفصول الثلاثة.
+            - **الطور العادي والتنافسي (Free-Play & Multiplayer)**: دعم اللعب الفردي، واللعب الجماعي عبر الشبكة المحلية (LAN UDP 4242) والإنترنت.
+            - **التحكم اللمسي المخصص للهواتف**: عصا تحكم افتراضية، تصويب، انزلاق تكتيكي، وميلان بالجسد خلف السواتر.
+            - **نظام الأوزان والعتاد**: قاذف الياسين 105 الترادفي (تدمير الدروع بضربة واحدة)، قاذف RPG-7، والهاون الميداني مع محاكاة عقوبات الوزن الزائد (الوزن العملاق).
+            - **الخريطة التكتيكية الميدانية**: تخطيط ببطء الزمن (0.25x) وتوجيه أفراد الفريق (أبو بكر، أبو حمزة، أبو البراء، أبو أنس).
+          files: |
+            bin/Gaza.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
