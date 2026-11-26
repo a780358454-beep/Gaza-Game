@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm4r8tacmap01"]
+
+[ext_resource type="Script" path="res://scripts/Tactical/TacticalMapOverlay.cs" id="1_tacmap"]
+
+[node name="TacticalMapOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tacmap")
+
+[node name="MapBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.08, 0.06, 0.88)
+
+[node name="MapHeader" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 20.0
+offset_right = 250.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.2, 0.9, 0.4, 1)
+text = "الخريطة التكتيكية الميدانية (كمين العقدة)"
+horizontal_alignment = 1
+
+[node name="OrdersBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -80.0
+offset_right = 420.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="BtnWaypoint" type="Button" parent="OrdersBar"]
+layout_mode = 2
+text = "مسار تقدم [أبو بكر]"
+
+[node name="BtnFireZone" type="Button" parent="OrdersBar"]
+layout_mode = 2
+text = "رماية تثبيت [رشاش LMG]"
+
+[node name="BtnBreach" type="Button" parent="OrdersBar"]
+layout_mode = 2
+text = "زرع عبوة [أبو البراء]"
+
+[node name="BtnMortar" type="Button" parent="OrdersBar"]
+layout_mode = 2
+text = "قصف هاون ميداني"
+
+[node name="BtnMedic" type="Button" parent="OrdersBar"]
+layout_mode = 2
+text = "صندوق إسعاف وذخيرة"
+
+[node name="BtnClose" type="Button" parent="OrdersBar"]
+layout_mode = 2
+text = "إغلاق الخريطة"

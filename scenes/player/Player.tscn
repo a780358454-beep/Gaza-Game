@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1gaza01player"]
+
+[ext_resource type="Script" path="res://scripts/Player/PlayerController.cs" id="1_controller"]
+[ext_resource type="Script" path="res://scripts/Player/HealthSystem.cs" id="2_health"]
+[ext_resource type="Script" path="res://scripts/Player/InventoryAndWeightSystem.cs" id="3_inventory"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.4
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 129
+script = ExtResource("1_controller")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+current = true
+fov = 75.0
+
+[node name="WeaponMount" type="Node3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, -0.18, -0.42)
+
+[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
+
+[node name="HealthSystem" type="Node" parent="."]
+script = ExtResource("2_health")
+
+[node name="InventorySystem" type="Node" parent="."]
+script = ExtResource("3_inventory")

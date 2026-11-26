@@ -1,0 +1,234 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8yv4g44l01ma"]
+
+[ext_resource type="Script" path="res://scripts/UI/MainMenu.cs" id="1_menu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06, 0.08, 0.07, 1)
+
+[node name="PanelMain" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleAr" type="Label" parent="PanelMain"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 40.0
+offset_right = 250.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 54
+text = "غَــــــــزَّة"
+horizontal_alignment = 1
+
+[node name="SubtitleAr" type="Label" parent="PanelMain"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 125.0
+offset_right = 300.0
+offset_bottom = 165.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.78, 0.72, 0.55, 1)
+text = "كمين العقدة — Tactical Mobile FPS"
+horizontal_alignment = 1
+
+[node name="BtnCampaign" type="Button" parent="PanelMain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -60.0
+offset_right = 180.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 22
+text = "طور القصة الموثقة (9 مشاهد)"
+
+[node name="BtnFreePlay" type="Button" parent="PanelMain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 10.0
+offset_right = 180.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 22
+text = "الطور العادي / معركة فردية"
+
+[node name="BtnMultiplayer" type="Button" parent="PanelMain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 80.0
+offset_right = 180.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 22
+text = "طور اللعب الجماعي (LAN / أونلاين)"
+
+[node name="BtnArmory" type="Button" parent="PanelMain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 150.0
+offset_right = 180.0
+offset_bottom = 205.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 22
+text = "المخزن وتجهيز العتاد"
+
+[node name="PanelLobby" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LobbyTitle" type="Label" parent="PanelLobby"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 50.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "غرفة اللعب الجماعي (LAN & Online)"
+horizontal_alignment = 1
+
+[node name="IPInput" type="LineEdit" parent="PanelLobby"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -60.0
+offset_right = 180.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "عنوان IP السيرفر (مثال: 192.168.1.10)"
+alignment = 1
+
+[node name="BtnHostLAN" type="Button" parent="PanelLobby"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 5.0
+offset_right = 180.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "إنشاء سيرفر محلي (Host LAN)"
+
+[node name="BtnJoinIP" type="Button" parent="PanelLobby"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 70.0
+offset_right = 180.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "الانضمام عبر IP (Join Game)"
+
+[node name="BtnBackLobby" type="Button" parent="PanelLobby"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 135.0
+offset_right = 180.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "رجوع للقائمة الرئيسية"
+
+[node name="StatusLabel" type="Label" parent="PanelLobby"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -80.0
+offset_right = 300.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "في انتظار الإجراء..."
+horizontal_alignment = 1
+
+[node name="PanelArmory" parent="." instance_placeholder="res://scenes/ui/ArmoryLoadoutUI.tscn"]
+visible = false
+layout_mode = 1
+
+[node name="BtnBackArmory" type="Button" parent="PanelArmory"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 160.0
+offset_bottom = 75.0
+text = "رجوع"

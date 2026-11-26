@@ -1,0 +1,63 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but it can also be edited by text.
+
+config_version=5
+
+[application]
+
+config/name="غزة"
+config/name_localized={
+"en": "Gaza"
+}
+config/description="Gaza (غزة) - Tactical FPS 3D Mobile Game featuring Operation: The Junction Ambush and Dual-Mode Architecture."
+config/version="1.0.0"
+run/main_scene="res://scenes/ui/MainMenu.tscn"
+config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
+boot_splash/bg_color=Color(0.08, 0.08, 0.1, 1)
+config/icon="res://assets/icons/icon.png"
+
+[autoload]
+
+GameManager="*res://scripts/Core/GameManager.cs"
+NetworkManager="*res://scripts/Core/NetworkManager.cs"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=0
+window/size/resizable=true
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[dotnet]
+
+project/assembly_name="Gaza"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=true
+
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Squad"
+3d_physics/layer_4="Enemy"
+3d_physics/layer_5="HeavyArmor"
+3d_physics/layer_6="Projectiles"
+3d_physics/layer_7="Pickups"
+3d_physics/layer_8="SmokeCover"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/quality/msaa_3d=0
+anti_aliasing/quality/screen_space_aa=0
+textures/vram_compression/import_etc2_astc=true
+viewport/scaling_3d_mode=0
+viewport/scaling_3d_scale=1.0

@@ -1,0 +1,119 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx8w12pl03arm"]
+
+[ext_resource type="Script" path="res://scripts/UI/ArmoryLoadoutUI.cs" id="1_armory"]
+
+[node name="ArmoryLoadoutUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_armory")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.10, 0.08, 0.95)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 30.0
+offset_right = 250.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "المخزن التكتيكي — اختيار العتاد والأسلحة الثقيلة"
+horizontal_alignment = 1
+
+[node name="WeightBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 90.0
+offset_right = 300.0
+offset_bottom = 125.0
+grow_horizontal = 2
+max_value = 45.0
+step = 0.1
+value = 24.5
+
+[node name="WeightLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 135.0
+offset_right = 200.0
+offset_bottom = 165.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 18
+text = "الوزن الإجمالي: 24.5 / 45.0 كجم"
+horizontal_alignment = 1
+
+[node name="EncumbranceWarning" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 175.0
+offset_right = 350.0
+offset_bottom = 210.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.25, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "تحذير: الوزن العملاق! ستنخفض سرعة الحركة بنسبة 35% ويتعطل الانزلاق."
+horizontal_alignment = 1
+
+[node name="WeaponsList" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -120.0
+offset_right = 280.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="BtnTandem" type="Button" parent="WeaponsList"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "قاذف الياسين 105 الترادفي (7.5 كجم) - تدمير الدروع بضربة واحدة"
+
+[node name="BtnRPG" type="Button" parent="WeaponsList"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "قاذف آر بي جي 7 القياسي (6.3 كجم) - يتطلب ضربتين لإعطاب الدبابة"
+
+[node name="BtnMortar" type="Button" parent="WeaponsList"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "مدفع هاون ميداني عيار 60 (12.0 كجم) - قصف إحداثيات الخريطة"
+
+[node name="BtnSniper" type="Button" parent="WeaponsList"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "بندقية قنص ثقيلة مع ناظور (5.2 كجم) - رماية دقيقة عن بعد"
+
+[node name="BtnSticky" type="Button" parent="WeaponsList"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "عبوة اختراق لاصقة مدرعة (2.5 كجم) - تثبيت صامت على الآليات"

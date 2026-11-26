@@ -1,0 +1,14 @@
+# Godot 4 & Mono
+.godot/
+.mono/
+bin/
+obj/
+*.tmp
+debug.keystore
+
+# Visual Studio / Rider / VSCode
+.vs/
+.idea/
+.vscode/
+*.user
+*.userprefs
