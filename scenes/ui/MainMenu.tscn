@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8yv4g44l01ma"]
+[gd_scene load_steps=3 format=3 uid="uid://c8yv4g44l01ma"]
 
 [ext_resource type="Script" path="res://scripts/UI/MainMenu.cs" id="1_menu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ArmoryLoadoutUI.tscn" id="2_armory"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -221,7 +222,7 @@ grow_vertical = 0
 text = "في انتظار الإجراء..."
 horizontal_alignment = 1
 
-[node name="PanelArmory" parent="." instance_placeholder="res://scenes/ui/ArmoryLoadoutUI.tscn"]
+[node name="PanelArmory" parent="." instance=ExtResource("2_armory")]
 visible = false
 layout_mode = 1
 

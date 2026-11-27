@@ -36,7 +36,11 @@ namespace GazaGame.UI
             GetNode<Button>("PanelLobby/BtnBackLobby").Pressed += ShowMainMenu;
 
             // Armory Back Button
-            GetNode<Button>("PanelArmory/BtnBackArmory").Pressed += ShowMainMenu;
+            var backBtn = _panelArmory.GetNodeOrNull<Button>("BtnBackArmory");
+            if (backBtn != null)
+            {
+                backBtn.Pressed += ShowMainMenu;
+            }
 
             ShowMainMenu();
         }
@@ -53,14 +57,23 @@ namespace GazaGame.UI
             GameManager.Instance.CurrentMode = GameMode.HistoricalCampaign;
             GameManager.Instance.CurrentCampaignScene = CampaignScene.Scene01_UndergroundPrayerRoom;
             GD.Print("[MainMenu] Launching Historical Campaign: كمين العقدة...");
-            GetTree().ChangeSceneToFile("res://scenes/maps/JunctionMap.tscn");
+            CallDeferred(nameof(LoadJunctionScene));
         }
 
         private void OnFreePlayPressed()
         {
             GameManager.Instance.CurrentMode = GameMode.FreePlaySolo;
             GD.Print("[MainMenu] Launching Free-Play Solo Skirmish...");
-            GetTree().ChangeSceneToFile("res://scenes/maps/JunctionMap.tscn");
+            CallDeferred(nameof(LoadJunctionScene));
+        }
+
+        private void LoadJunctionScene()
+        {
+            var err = GetTree().ChangeSceneToFile("res://scenes/maps/JunctionMap.tscn");
+            if (err != Error.Ok)
+            {
+                GD.PrintErr($"[MainMenu] Failed to load JunctionMap: {err}");
+            }
         }
 
         private void OnMultiplayerPressed()
@@ -83,7 +96,7 @@ namespace GazaGame.UI
             var err = NetworkManager.Instance.HostGame(GameConfig.GameServerPort, 4);
             if (err == Error.Ok)
             {
-                GetTree().ChangeSceneToFile("res://scenes/maps/JunctionMap.tscn");
+                CallDeferred(nameof(LoadJunctionScene));
             }
             else
             {
@@ -100,7 +113,7 @@ namespace GazaGame.UI
             var err = NetworkManager.Instance.JoinGame(ip, GameConfig.GameServerPort);
             if (err == Error.Ok)
             {
-                GetTree().ChangeSceneToFile("res://scenes/maps/JunctionMap.tscn");
+                CallDeferred(nameof(LoadJunctionScene));
             }
             else
             {
